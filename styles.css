@@ -1,0 +1,121 @@
+/* Blur Effect for In-Development Projects */
+.blur-image {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+}
+
+.blur-image:hover {
+    filter: blur(0);
+}
+
+/* Modern Horizontal Slider Container */
+.scrollable-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 20px; /* Add some space for scrollbar */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.scrollable-content {
+    display: inline-flex;
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Add padding to the slider */
+}
+
+/* Card Styling */
+.card {
+    display: inline-block;
+    width: 300px; /* Fixed width for each card */
+    white-space: normal; /* Allow text to wrap inside cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.tags {
+    margin-bottom: 10px;
+}
+
+.badge {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Hero Section Button Styling */
+.hero .btn-light {
+    background-color: white;
+    color: #007bff; /* Change text color to match your theme */
+    border: 1px solid white; /* Optional: Add a border to make it stand out */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero .btn-light:hover {
+    background-color: #f8f9fa; /* Slightly darker white on hover */
+    color: #0056b3; /* Darker text color on hover */
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+/* Scrollbar Styling */
+.scrollable-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
