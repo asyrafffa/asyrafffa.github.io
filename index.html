@@ -35,7 +35,7 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="display-3 fw-bold">Asyraff Azhar</h1>
-                <p class="lead fs-4" id="typedText"></p>
+                <p class="lead fs-4">Data Engineer | AI Enthusiast | Lifelong Learner | Problem Solver</p>
                 <p class="lead fs-6 mt-2 text-light opacity-75">
                     <i class="fas fa-database me-2"></i>Data &bull;
                     <i class="fas fa-code me-2"></i>Code &bull;
@@ -132,9 +132,8 @@
     <section id="projects" class="py-5">
         <div class="container">
             <h2 class="text-center mb-4 section-title">Projects</h2>
-            <p class="text-center text-muted small">Drag &bull; Arrow keys &bull; Click arrows to browse</p>
+            <p class="text-center text-muted small">Drag &bull; Arrow keys to browse</p>
             <div class="slider-wrapper">
-                <button class="slider-arrow slider-arrow-left" aria-label="Previous projects"><i class="fas fa-chevron-left"></i></button>
                 <div class="scrollable-container">
                     <div class="scrollable-content" tabindex="0" role="region" aria-label="Project cards">
                         <!-- Project 1 -->
@@ -236,7 +235,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="slider-arrow slider-arrow-right" aria-label="Next projects"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="scroll-indicator text-center mt-3">
                 <span class="dot active"></span>
@@ -288,50 +286,21 @@
         toggleLabel.textContent = isLong ? 'Read Long Version' : 'Read Short Version';
     });
 
-    // === Hero Typed Text Effect ===
-    (function() {
-        const el = document.getElementById('typedText');
-        const phrases = [
-            'Data Engineer',
-            'AI Enthusiast',
-            'Lifelong Learner',
-            'Problem Solver'
-        ];
-        let i = 0, j = 0, deleting = false, paused = false;
-        function tick() {
-            const cur = phrases[i];
-            if (paused) { setTimeout(() => { paused = false; tick(); }, 1500); return; }
-            if (deleting) {
-                j--;
-                el.textContent = cur.substring(0, j);
-                if (j === 0) { deleting = false; i = (i + 1) % phrases.length; setTimeout(tick, 400); }
-                else setTimeout(tick, 30);
-            } else {
-                j++;
-                el.textContent = cur.substring(0, j);
-                if (j === cur.length) { paused = true; deleting = true; setTimeout(tick, 1500); }
-                else setTimeout(tick, 60);
-            }
-        }
-        tick();
-    })();
 
-    // === Projects Slider: Drag + Arrow Nav + Keyboard + Dots ===
+    // === Projects Slider: Drag + Keyboard + Dots ===
     (function() {
         const container = document.querySelector('.scrollable-container');
         const content = document.querySelector('.scrollable-content');
-        const leftArrow = document.querySelector('.slider-arrow-left');
-        const rightArrow = document.querySelector('.slider-arrow-right');
         const dots = document.querySelectorAll('.dot');
         let isDragging = false;
-        let startX, scrollLeft;
+        let startX, startScroll;
 
         // Drag to scroll — uses clientX (standard), not pageX
         content.addEventListener('mousedown', (e) => {
             isDragging = true;
-            const rect = content.getBoundingClientRect();
+            const rect = container.getBoundingClientRect();
             startX = e.clientX - rect.left;
-            scrollLeft = content.scrollLeft;
+            startScroll = container.scrollLeft;
             content.style.cursor = 'grabbing';
         });
         document.addEventListener('mouseup', () => {
@@ -340,30 +309,28 @@
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
-            const rect = content.getBoundingClientRect();
-            content.scrollLeft = scrollLeft - (e.clientX - rect.left - startX) * 2;
+            const rect = container.getBoundingClientRect();
+            container.scrollLeft = startScroll - (e.clientX - rect.left - startX) * 2;
         });
-        // Mouse-wheel horizontal scroll
-        content.addEventListener('wheel', (e) => {
+        // Mouse-wheel horizontal scroll (on the scrollable container)
+        container.addEventListener('wheel', (e) => {
             e.preventDefault();
-            content.scrollLeft += e.deltaY * 2;
+            container.scrollLeft += e.deltaY * 2;
         }, { passive: false });
 
         const step = 320;
-        leftArrow.addEventListener('click', () => { content.scrollLeft -= step; });
-        rightArrow.addEventListener('click', () => { content.scrollLeft += step; });
         content.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') { e.preventDefault(); content.scrollLeft += step; }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); content.scrollLeft -= step; }
+            if (e.key === 'ArrowRight') { e.preventDefault(); container.scrollLeft += step; }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); container.scrollLeft -= step; }
         });
 
         function updateDots() {
-            const maxScroll = content.scrollWidth - content.clientWidth;
-            const ratio = maxScroll > 0 ? content.scrollLeft / maxScroll : 0;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const ratio = maxScroll > 0 ? container.scrollLeft / maxScroll : 0;
             const active = Math.min(Math.round(ratio * (dots.length - 1)), dots.length - 1);
             dots.forEach((d, idx) => d.classList.toggle('active', idx === active));
         }
-        content.addEventListener('scroll', updateDots);
+        container.addEventListener('scroll', updateDots);
         updateDots();
         content.style.cursor = 'grab';
     })();
