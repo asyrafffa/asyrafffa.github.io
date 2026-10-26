@@ -1,121 +1,351 @@
-/* Blur Effect for In-Development Projects */
-.blur-image {
-    filter: blur(5px);
-    transition: filter 0.3s ease;
+/* ============================================================
+   Asyraff Azhar — Portfolio Styles
+   ============================================================ */
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+    --primary: #007bff;
+    --primary-dark: #0056b3;
+    --accent: #20C997;
+    --bg-light: #f8f9fa;
+    --border-radius: 12px;
+    --transition: 0.3s ease;
 }
 
-.blur-image:hover {
-    filter: blur(0);
+html {
+    scroll-behavior: smooth;
 }
 
-/* Modern Horizontal Slider Container */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #212529;
+    background: #fff;
+    padding-top: 56px; /* fixed nav offset */
+}
+
+/* ---- Typography ---- */
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-top: 0;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+/* ---- Navigation ---- */
+.navbar {
+    backdrop-filter: blur(8px);
+    background: rgba(33, 37, 41, 0.92);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    position: relative;
+    font-weight: 500;
+    padding: 8px 16px;
+    transition: color var(--transition);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--transition);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* ---- Hero ---- */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.10) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    animation: heroFadeIn 1s ease both;
+}
+
+@keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+#typedText {
+    min-height: 1.5em;
+    border-right: 2px solid rgba(255,255,255,0.8);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* ---- About Section ---- */
+.about-content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #444;
+    max-width: 780px;
+    margin: 0 auto 1rem;
+}
+
+/* ---- Skills Section ---- */
+.skill-card {
+    background: #fff;
+    border: 1px solid #e9eef2;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.skill-card .skill-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+}
+
+.skill-card .skill-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.skill-card .skill-body .badge {
+    margin: 0 4px 6px 0;
+    font-size: 0.78rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.skill-card .skill-bars {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.skill-card .progress {
+    border-radius: 3px;
+    background: #e9ecef;
+}
+
+/* ---- Projects Slider ---- */
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #555;
+    transition: background var(--transition), color var(--transition);
+}
+
+.slider-arrow:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.slider-arrow-left  { left:  -8px; }
+.slider-arrow-right { right: -8px; }
+
+@media (max-width: 576px) {
+    .slider-arrow { display: none; }
+}
+
 .scrollable-container {
     width: 100%;
     overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 20px; /* Add some space for scrollbar */
-    scroll-behavior: smooth; /* Smooth scrolling */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-bottom: 16px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
-.scrollable-content {
-    display: inline-flex;
-    gap: 20px; /* Space between cards */
-    padding: 20px; /* Add padding to the slider */
-}
-
-/* Card Styling */
-.card {
-    display: inline-block;
-    width: 300px; /* Fixed width for each card */
-    white-space: normal; /* Allow text to wrap inside cards */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.card-text {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.tags {
-    margin-bottom: 10px;
-}
-
-.badge {
-    margin-right: 5px;
-    font-size: 12px;
-}
-
-.btn {
-    margin-top: 10px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-/* Hero Section Button Styling */
-.hero .btn-light {
-    background-color: white;
-    color: #007bff; /* Change text color to match your theme */
-    border: 1px solid white; /* Optional: Add a border to make it stand out */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.hero .btn-light:hover {
-    background-color: #f8f9fa; /* Slightly darker white on hover */
-    color: #0056b3; /* Darker text color on hover */
-    border-color: #0056b3; /* Darker border on hover */
-}
-
-/* Scrollbar Styling */
 .scrollable-container::-webkit-scrollbar {
     height: 8px;
 }
-
 .scrollable-container::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
-
 .scrollable-container::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #aaa;
     border-radius: 4px;
 }
-
 .scrollable-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #666;
+}
+
+.scrollable-content {
+    display: inline-flex;
+    gap: 24px;
+    padding: 20px 12px;
+    outline: none;
+}
+
+/* ---- Cards ---- */
+.project-card {
+    display: inline-flex;
+    flex-direction: column;
+    width: 300px;
+    white-space: normal;
+    background: #fff;
+    border: 1px solid #e9eef2;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.project-card .card-img-top {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.project-card .card-body {
+    padding: 1.25rem;
+}
+
+.project-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.project-card .card-text {
+    font-size: 0.87rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.project-card .tags .badge {
+    margin-right: 5px;
+    font-size: 0.72rem;
+    padding: 4px 9px;
+    border-radius: 5px;
+}
+
+/* ---- Button Base ---- */
+.btn {
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-weight: 500;
+    transition: all var(--transition);
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+}
+.btn-outline-primary:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ---- Scroll Indicator Dots ---- */
+.scroll-indicator .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    margin: 0 5px;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.scroll-indicator .dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+/* ---- Footer ---- */
+footer .social-links a {
+    transition: color var(--transition), transform var(--transition);
+}
+
+footer .social-links a:hover {
+    color: var(--accent) !important;
+    transform: scale(1.15);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .hero { min-height: 80vh; }
+    .hero h1 { font-size: 2rem; }
+    .hero .lead { font-size: 1rem; }
+    #typedText { font-size: 1.15rem; border-right-width: 1px; }
+    .skill-card { padding: 1rem; }
+    .project-card { width: 260px; }
+    .project-card .card-img-top { height: 150px; }
+}
+
+@media (max-width: 576px) {
+    .project-card { width: 240px; }
+    .scrollable-content { gap: 16px; padding: 16px 8px; }
+    .section-title { font-size: 1.4rem; }
 }
